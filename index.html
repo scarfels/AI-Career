@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Career — подбор IT-профессии</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#101735;--paper:#f5f6fb;--card:#fff;--line:#e1e4f0;--muted:#5b6385;--blue:#3050ff;--soft:#e8ecff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 Manrope,"Segoe UI",Arial,sans-serif}
+h1,h2,h3{font-family:Unbounded,Manrope,sans-serif;font-weight:600;line-height:1.2;margin:0}
+h2{font-size:clamp(1.4rem,3vw,2rem);margin-bottom:12px}
+h3{font-size:1.05rem}
+p{margin:0 0 12px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.muted{color:var(--muted)}.small{font-size:.88rem}
+section{padding:72px 0}
+
+.top{position:sticky;top:0;z-index:5;background:rgba(245,246,251,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.logo{font:600 1.15rem Unbounded,sans-serif;color:var(--ink);text-decoration:none}
+.logo i{font-style:normal;color:var(--blue)}
+.top a.l{color:var(--muted);text-decoration:none;margin-left:24px;font-weight:600;font-size:.95rem}
+.top a.l:hover{color:var(--blue)}
+
+.btn{display:inline-block;background:var(--blue);color:#fff;border:2px solid var(--blue);border-radius:10px;padding:13px 26px;font:800 1rem Manrope,sans-serif;cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(1.1)}
+.btn.alt{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.ghost{background:transparent;color:#fff;border-color:#5a6699}
+button:focus-visible,a:focus-visible{outline:3px solid #ffb800;outline-offset:2px}
+
+.hero{background:var(--ink);color:#fff;padding:80px 0}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(1.9rem,4.4vw,3.1rem);margin-bottom:20px}
+.hero p{color:#c4c9e8;font-size:1.1rem;max-width:520px}
+.hero .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.hero .radar{color:#fff;max-width:380px;margin:0 auto}
+.hero .u{stroke:#8da0ff;fill:#8da0ff}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:28px}
+.steps b{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;font-family:Unbounded,sans-serif;margin-bottom:12px}
+.steps h3{margin-bottom:6px}
+
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:36px}
+.progress{height:6px;background:var(--soft);border-radius:3px;overflow:hidden;margin-bottom:12px}
+#bar{height:100%;width:0;background:var(--blue);transition:width .3s}
+#q{font-size:clamp(1.2rem,2.6vw,1.6rem);margin:8px 0 26px;min-height:3.6em}
+.ans{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.ans button{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:16px 6px;cursor:pointer;font:600 .9rem Manrope,sans-serif;color:var(--ink)}
+.ans button:hover{border-color:var(--blue);background:var(--soft)}
+.ans b{display:block;font:600 1.4rem Unbounded,sans-serif;color:var(--blue);margin-bottom:4px}
+.link{background:none;border:0;color:var(--blue);font:600 .95rem Manrope,sans-serif;cursor:pointer;padding:8px 0;margin-top:16px}
+
+.res{display:grid;grid-template-columns:360px 1fr;gap:32px;align-items:center}
+.radar svg{width:100%;height:auto;display:block}
+.radar{color:var(--ink)}
+.u{fill:var(--blue);fill-opacity:.28;stroke:var(--blue);stroke-width:2.5}
+.legend{display:flex;gap:16px;justify-content:center;font-size:.85rem;color:var(--muted)}
+.legend i{display:inline-block;width:18px;height:0;border-top:3px solid var(--blue);vertical-align:middle;margin-right:6px}
+.legend i.d{border-top:2px dashed var(--ink)}
+.big{font:600 3rem Unbounded,sans-serif;color:var(--blue);line-height:1}
+.chip{display:inline-block;background:var(--soft);color:var(--blue);font-weight:600;font-size:.85rem;padding:4px 12px;border-radius:999px;margin:0 6px 6px 0}
+.rbtn{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+.res2{margin-top:32px}
+.job{display:grid;grid-template-columns:1fr 90px;gap:8px 20px;padding:20px 0;border-top:1px solid var(--line)}
+.job:first-of-type{border-top:0}
+.job .pc{font:600 1.7rem Unbounded,sans-serif;color:var(--blue);text-align:right}
+.meter{height:8px;background:var(--soft);border-radius:4px;overflow:hidden;margin:6px 0}
+.meter div{height:100%;background:var(--blue)}
+.road{list-style:none;padding:0;margin:14px 0 0 6px;border-left:2px solid var(--line)}
+.road li{position:relative;padding:0 0 18px 22px}
+.road li::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--blue)}
+.road b{display:block}
+.rest div{display:grid;grid-template-columns:260px 1fr 50px;gap:14px;align-items:center;margin:6px 0;font-size:.95rem}
+
+.cat{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:16px;margin-top:24px}
+.cat div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.cat h3{margin-bottom:8px}
+.cat p{color:var(--muted);font-size:.95rem;margin:0}
+footer{background:var(--ink);color:#aeb5da;padding:32px 0;font-size:.92rem}
+footer strong{color:#fff}
+
+@media(max-width:800px){
+  section{padding:48px 0}.hero{padding:48px 0}
+  .hero .wrap,.res,.steps{grid-template-columns:1fr}
+  .top a.l{display:none}.box{padding:22px}
+  .ans{grid-template-columns:1fr 1fr}
+  .rest div{grid-template-columns:1fr 60px;}.rest .meter{grid-column:1/3}
+}
+@media(prefers-reduced-motion:reduce){#bar{transition:none}html{scroll-behavior:auto}}
+@media print{.top,.hero,#how,#jobs,footer,.rbtn{display:none}section{padding:12px 0}}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <a class="logo" href="#">AI<i>Career</i></a>
+  <nav><a class="l" href="#how">Как это работает</a><a class="l" href="#test">Тест</a><a class="l" href="#jobs">Профессии</a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <div>
+    <h1>Найди IT-профессию, которая подходит именно тебе</h1>
+    <p>Ответь на 12 вопросов. Система сравнит твои качества с профилями IT-профессий, покажет сильные стороны и составит план обучения.</p>
+    <div class="btns"><a class="btn" href="#test">Пройти тест</a><a class="btn ghost" href="#jobs">Все направления</a></div>
+  </div>
+  <div class="radar" id="heroRadar" aria-hidden="true"></div>
+</div></div>
+
+<section id="how"><div class="wrap">
+  <h2>Как это работает</h2>
+  <div class="steps">
+    <div><b>1</b><h3>Отвечаешь на вопросы</h3><p class="muted">12 утверждений. Выбираешь, насколько они про тебя: от «совсем нет» до «точно да».</p></div>
+    <div><b>2</b><h3>ИИ строит твой профиль</h3><p class="muted">Алгоритм считает 6 качеств и сравнивает их с профилем каждой профессии.</p></div>
+    <div><b>3</b><h3>Получаешь план</h3><p class="muted">Три лучшие профессии, сильные стороны и шаги обучения на полгода.</p></div>
+  </div>
+</div></section>
+
+<section id="test" style="background:#fff;border-block:1px solid var(--line)"><div class="wrap">
+  <div class="box" id="quiz">
+    <div class="progress"><div id="bar"></div></div>
+    <p class="muted small" id="cnt"></p>
+    <h2 id="q"></h2>
+    <div class="ans" id="ans"></div>
+    <button class="link" id="back">Назад</button>
+  </div>
+  <div id="result" hidden></div>
+</div></section>
+
+<section id="jobs"><div class="wrap">
+  <h2>Направления, которые мы сравниваем</h2>
+  <p class="muted">Восемь популярных IT-профессий. У каждой свой профиль качеств.</p>
+  <div class="cat" id="cat"></div>
+</div></section>
+
+<footer><div class="wrap"><strong>AI Career</strong> — проект для «ТехноИнноПарка». Результат теста — подсказка, а не приговор: пробуй разные направления.</div></footer>
+
+<script>
+/* ===== ДАННЫЕ ===== */
+const TRAITS={logic:"Логика",design:"Творчество и дизайн",people:"Общение",math:"Математика и данные",detail:"Внимательность",tech:"Интерес к технике"};
+const SHORT={logic:"Логика",design:"Творчество",people:"Общение",math:"Данные",detail:"Внимание",tech:"Техника"};
+const QUESTIONS=[
+ ["Мне нравится решать сложные логические задачи","logic"],
+ ["Я люблю искать, почему программа работает неправильно","logic"],
+ ["Мне нравится придумывать, как должен выглядеть сайт или приложение","design"],
+ ["Я замечаю, когда цвета или шрифты подобраны плохо","design"],
+ ["Мне легко знакомиться и общаться с людьми","people"],
+ ["Я люблю работать в команде и объяснять другим","people"],
+ ["Мне нравится математика и работа с числами","math"],
+ ["Я люблю искать закономерности в данных","math"],
+ ["Я замечаю мелкие ошибки, которые другие пропускают","detail"],
+ ["Мне важно довести работу до идеала","detail"],
+ ["Мне интересно, как устроены компьютеры и сети","tech"],
+ ["Я люблю собирать, настраивать и чинить технику","tech"]
+].map(q=>({text:q[0],trait:q[1]}));
+const LABELS=["Совсем нет","Скорее нет","Не знаю","Скорее да","Точно да"];
+const PERIODS=["Месяц 1","Месяцы 2–3","Месяцы 4–6"];
+// profile — нужный уровень каждого качества (1–5)
+const PROFESSIONS=[
+ {name:"Frontend-разработчик",desc:"Создаёт внешний вид сайтов и веб-приложений.",profile:{logic:3,design:5,people:2,math:2,detail:4,tech:3},skills:["HTML и CSS","JavaScript","React","Git"],plan:["HTML, CSS и Git: сверстай 3 страницы","JavaScript: сделай интерактивный сайт","React и портфолио на GitHub"]},
+ {name:"Backend-разработчик",desc:"Делает серверную часть: логику, базы данных, API.",profile:{logic:5,design:1,people:2,math:3,detail:4,tech:4},skills:["Python или Java","SQL","API","Git"],plan:["Python и основы алгоритмов","SQL и свой сервер на Flask или FastAPI","API, Git и проект с базой данных"]},
+ {name:"Data Scientist",desc:"Находит закономерности в данных и учит модели предсказывать.",profile:{logic:4,design:1,people:2,math:5,detail:4,tech:3},skills:["Python","Статистика","pandas","Машинное обучение"],plan:["Python и основы статистики","pandas и графики на реальных данных","Первая модель машинного обучения и кейс в портфолио"]},
+ {name:"UX/UI-дизайнер",desc:"Проектирует удобные и красивые интерфейсы.",profile:{logic:2,design:5,people:4,math:1,detail:4,tech:2},skills:["Figma","Композиция и цвет","Исследование пользователей"],plan:["Figma и основы композиции","Редизайн существующего приложения","Интервью с пользователями и кейс в портфолио"]},
+ {name:"QA-тестировщик",desc:"Проверяет программы и находит ошибки до пользователей.",profile:{logic:4,design:1,people:3,math:2,detail:5,tech:3},skills:["Тест-дизайн","Баг-репорты","SQL","Автотесты"],plan:["Основы тестирования и баг-репорты","SQL и API-тесты в Postman","Автотесты на Python или JavaScript"]},
+ {name:"Специалист по кибербезопасности",desc:"Защищает системы и данные от взлома.",profile:{logic:5,design:1,people:2,math:3,detail:5,tech:5},skills:["Сети","Linux","Криптография","Python"],plan:["Сети и Linux","Основы криптографии и уязвимости (OWASP)","Учебные CTF-задачи и скрипты на Python"]},
+ {name:"Сисадмин / DevOps",desc:"Настраивает серверы и автоматизирует выпуск программ.",profile:{logic:4,design:1,people:3,math:2,detail:4,tech:5},skills:["Linux","Сети","Docker","Git"],plan:["Linux и сети","Git, Docker и CI/CD","Облако и автоматизация: свой учебный сервер"]},
+ {name:"Бизнес-аналитик / Project-менеджер",desc:"Связывает заказчика и команду, ведёт проект к результату.",profile:{logic:3,design:2,people:5,math:3,detail:4,tech:2},skills:["Сбор требований","UML и блок-схемы","Scrum","Excel и SQL"],plan:["Требования, UML и блок-схемы","Scrum, Jira, Excel и SQL","Учебный проект в роли аналитика или менеджера"]}
+];
+
+/* ===== ЛОГИКА ИИ: сравнение профилей ===== */
+// Шаг 1. Профиль пользователя = среднее по ответам для каждого качества
+function buildProfile(a){
+  const s={},c={};
+  QUESTIONS.forEach((q,i)=>{s[q.trait]=(s[q.trait]||0)+a[i];c[q.trait]=(c[q.trait]||0)+1});
+  const p={};for(const t in TRAITS)p[t]=s[t]/c[t];return p;
+}
+// Шаг 2. Процент совпадения: чем меньше разница, тем выше процент
+function matchPercent(u,p){
+  let d=0;for(const t in TRAITS)d+=Math.abs(u[t]-p[t]);
+  return Math.round(100-d/(Object.keys(TRAITS).length*4)*100);
+}
+// Шаг 3. Сильные стороны — два самых высоких качества
+function strengths(u){
+  const k=Object.keys(TRAITS).sort((a,b)=>u[b]-u[a]);
+  return u[k[0]]<3?["Ярких сильных сторон пока нет — пробуй разные направления"]:k.slice(0,2).map(t=>TRAITS[t]);
+}
+// Шаг 4. Объяснение: почему подходит и что подтянуть
+function explain(u,p){
+  const good=[],weak=[];
+  for(const t in TRAITS){
+    if(p[t]>=4&&u[t]>=3.5)good.push(TRAITS[t].toLowerCase());
+    if(p[t]-u[t]>=1.5)weak.push(TRAITS[t].toLowerCase());
+  }
+  let s=good.length?"Подходит, потому что у тебя сильны: "+good.join(", ")+".":"Подходит по общему профилю твоих ответов.";
+  if(weak.length)s+=" Стоит подтянуть: "+weak.join(", ")+".";
+  return s;
+}
+function analyze(a){
+  const u=buildProfile(a);
+  const all=PROFESSIONS.map(p=>({prof:p,percent:matchPercent(u,p.profile),text:explain(u,p.profile)}))
+    .sort((x,y)=>y.percent-x.percent);
+  return{user:u,strengths:strengths(u),top:all.slice(0,3),rest:all.slice(3)};
+}
+
+/* ===== ГРАФИК-РАДАР (SVG) ===== */
+function radar(user,prof){
+  const keys=Object.keys(TRAITS),n=keys.length,c=170,R=105;
+  const pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/n,r=R*v/5;return[c+r*Math.cos(a),c+r*Math.sin(a)]};
+  const poly=f=>keys.map((k,i)=>pt(i,f(k)).map(x=>x.toFixed(1)).join(",")).join(" ");
+  let s='<svg viewBox="0 0 340 340" role="img" aria-label="Профиль качеств">';
+  for(let l=1;l<=5;l++)s+='<polygon points="'+poly(()=>l)+'" fill="none" stroke="currentColor" opacity=".18"/>';
+  keys.forEach((k,i)=>{
+    const e=pt(i,5),t=pt(i,5.95);
+    s+='<line x1="'+c+'" y1="'+c+'" x2="'+e[0]+'" y2="'+e[1]+'" stroke="currentColor" opacity=".18"/>'+
+       '<text x="'+t[0]+'" y="'+t[1]+'" text-anchor="middle" dominant-baseline="middle" font-size="12" font-weight="600" fill="currentColor">'+SHORT[k]+'</text>';
+  });
+  if(prof)s+='<polygon points="'+poly(k=>prof[k])+'" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 4"/>';
+  return s+'<polygon class="u" points="'+poly(k=>user[k])+'"/></svg>';
+}
+
+/* ===== ИНТЕРФЕЙС ===== */
+const $=id=>document.getElementById(id);
+let cur=0,answers=[];
+
+function showQ(){
+  $("cnt").textContent="Вопрос "+(cur+1)+" из "+QUESTIONS.length;
+  $("bar").style.width=(cur/QUESTIONS.length*100)+"%";
+  $("q").textContent=QUESTIONS[cur].text;
+  $("back").hidden=cur===0;
+  $("ans").innerHTML="";
+  LABELS.forEach((l,i)=>{
+    const b=document.createElement("button");
+    b.innerHTML="<b>"+(i+1)+"</b>"+l;
+    b.onclick=()=>{answers[cur]=i+1;cur++;cur<QUESTIONS.length?showQ():showResult()};
+    $("ans").appendChild(b);
+  });
+}
+function start(){
+  cur=0;answers=[];
+  $("result").hidden=true;$("quiz").hidden=false;
+  showQ();
+}
+function showResult(){
+  const r=analyze(answers),best=r.top[0],p=best.prof;
+  let h='<div class="box"><div class="res"><div class="radar">'+radar(r.user,p.profile)+
+    '<div class="legend"><span><i></i>Ты</span><span><i class="d"></i>'+p.name+'</span></div></div><div>'+
+    '<p class="muted">Тебе ближе всего</p><h2>'+p.name+'</h2><div class="big">'+best.percent+'%</div>'+
+    '<p class="muted">совпадение с профилем</p><p>'+p.desc+' '+best.text+'</p>'+
+    '<p class="small muted">Твои сильные стороны</p><div>'+r.strengths.map(s=>'<span class="chip">'+s+'</span>').join("")+'</div>'+
+    '<div class="rbtn"><button class="btn" onclick="start();$(\'test\').scrollIntoView()">Пройти заново</button>'+
+    '<button class="btn alt" onclick="window.print()">Сохранить результат</button></div></div></div></div>';
+
+  h+='<div class="box res2"><h2>Три лучшие профессии</h2>';
+  r.top.forEach(t=>{
+    h+='<div class="job"><div><h3>'+t.prof.name+'</h3><div class="meter"><div style="width:'+t.percent+'%"></div></div>'+
+      '<p class="muted">'+t.text+'</p>'+t.prof.skills.map(s=>'<span class="chip">'+s+'</span>').join("")+
+      '</div><div class="pc">'+t.percent+'%</div></div>';
+  });
+  h+='</div><div class="box res2"><h2>Твой план обучения: '+p.name+'</h2><ul class="road">'+
+    p.plan.map((s,i)=>'<li><b>'+PERIODS[i]+'</b>'+s+'</li>').join("")+'</ul></div>';
+  h+='<div class="box res2"><h2>Остальные направления</h2><div class="rest">'+
+    r.rest.map(t=>'<div><span>'+t.prof.name+'</span><div class="meter"><div style="width:'+t.percent+'%"></div></div><b>'+t.percent+'%</b></div>').join("")+'</div></div>';
+
+  $("result").innerHTML=h;
+  $("quiz").hidden=true;$("result").hidden=false;
+  $("test").scrollIntoView();
+}
+
+$("back").onclick=()=>{if(cur>0){cur--;showQ()}};
+$("heroRadar").innerHTML=radar({logic:4,design:3,people:2,math:5,detail:4,tech:3},null);
+$("cat").innerHTML=PROFESSIONS.map(p=>'<div><h3>'+p.name+'</h3><p>'+p.desc+'</p></div>').join("");
+showQ();
+</script>
+</body>
+</html>
